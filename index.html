@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>GuyLang Docs</title>
+    <title>FarshLang Docs</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body class="p-3 m-0 border-0 bd-example m-0 border-0">    
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            GuyLang Docs
+            FarshLang Docs
           </a>
         </div>
       </nav>
@@ -25,10 +25,18 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" style="">
             <div class="accordion-body">
-                GuyLang это интерпретируемый функциональный язык программирования, который написан студентами 2-го курса Московского Авиационного Института.
+                FarshLang это интерпретируемый функциональный язык программирования, который написан студентами 2-го курса Московского Авиационного Института в рамках лабораторной работы по дисциплине "Логическое и функциональное программирование".
                 <br/>
                 <br/>
-                Язык не имеет каких-то продвинутых возможностей. Написан с использованием библиотеки FParsec.
+                <b>Руководство по синтаксису</b>
+                Программы на языке FarshLang представляют собой строки. Для определения чего-либо необходимо поставить маркер <code>!</code> (<code>let</code> в F#), далее пишется индентификатор, который является последовательностью ASCII-символов.
+                Далее мы пишем определение в квадратных скобках. В скобках можем писать любые необходимые выражения. Язык поддерживает аппликацию, которая пишется в фигурных скобках. Также в язфке есть поддержка рекурсии. Для написания рекурсивной функции необходимо перед маркером <code>!</code> написать маркер <code>@</code>.
+                После определения функции ставится маркер <code>~</code>, а после него выражение, в котором функция применяется.
+                Также в языке есть поддержка условных операторов, с помощью маркера <code>?</code> можно написать условие которое будет проверяться, далее маркер <code>&</code> - если условие истинно, <code>:</code> - если условие ложно.
+                В языке есть математические операции: сложение, вычитание, умножение, деление, а также строгие и нестрогие операторы сравнения. Помимо стандартных математических операций, есть встроенные математические функции синуса (<code>sin</code>), косинуса (<code>cos</code>) и натурального логарифма (<code>ln</code>).
+                Все арифметические операции представлены в префиксной записи. Функции принимают лишь один аргумент.
+                <b>Модульность</b>
+                <b>Применение языка</b>
             </div>
           </div>
         </div>
@@ -40,7 +48,25 @@
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" style="">
             <div class="accordion-body">
-                <code>$ dotnet addpackage какая-то хуета</code>
+                Клонируем репозиторий
+                <br/>
+                <code>$ git clone git@github.com:MAILabs-Edu-2024/fp-compiler-lab-save_our_souls.git</code>
+                <br/>
+                Переходим в проект
+                <br/>
+                <code>$ cd project_name</code>
+                <br/>
+                Реконструируем
+                <br/>
+                <code>$ dotnet restore</code>
+                <br/>
+                Собираем
+                <br/>
+                <code>$ dotnet build</code>
+                <br/>
+                Запускаем
+                <br/>
+                <code>$ dotnet run</code>
             </div>
           </div>
         </div>
@@ -52,10 +78,28 @@
           </h2>
           <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" style="">
             <div class="accordion-body">
+                Инкримент (каррирование):
+                <br/>
+                <code>
+                    ! inc [{+ 1}] ~ {inc 10}
+                </code>
+                <br/>
+                Инкримент (лямбда-функция):
+                <br/>
+                <code>
+                    ! inc [$ x = [ {{+ x} 1} ] ] ~ {inc 4}
+                </code>
+                <br/>
                 Факториал:
                 <br/>
                 <code>
                     @! factorial [$ x = [? {{< x} 2} : 1 % {{* {factorial {{- x} 1}}} x} ] ] ~ {factorial 5}
+                </code>
+                <br/>
+                Числа Фибоначчи:
+                <br/>
+                <code>
+                    @! fib [$x = [? {{> x} 2} & { {+ {fib {{- x} 2}}} {fib {{- x} 1}} } : 1] ] ~ {fib 6}
                 </code>
             </div>
           </div>
